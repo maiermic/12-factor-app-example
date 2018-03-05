@@ -22,10 +22,12 @@ services:
       - STATIC_IMAGE_DIRECTORY=/static-image-directory
       - PORT=3001
     volumes:
-      - image-storage-volume:/static-image-directory
+      - ./volumes/image-storage:/static-image-directory
   database:
 #    image: maiermic/12-factor-app-example-database-mongo:1.0.0
     image: mongo:latest
+    volumes:
+      - ./volumes/database:/data/db
   visualizer:
       image: dockersamples/visualizer:stable
       ports:
@@ -40,5 +42,3 @@ secrets:
     external: true
   mongo_password:
     external: true
-volumes:
-  image-storage-volume:
