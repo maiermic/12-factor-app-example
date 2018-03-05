@@ -14,6 +14,8 @@ services:
     secrets:
       - mongo_user
       - mongo_password
+    deploy:
+      replicas: 2
   image_storage:
     image: maiermic/12-factor-app-example-image-storage-nodejs:latest
     ports:
