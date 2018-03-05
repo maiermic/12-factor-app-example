@@ -1,0 +1,35 @@
+version: '3.1'
+services:
+  backend:
+    image: maiermic/12-factor-app-example-backend-nodejs:latest
+    depends_on:
+      - database
+      - image_storage
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://database:27017/12-factor-app
+      - PORT=3000
+      - BASE_IMAGE_URL=http://192.168.2.105:3001
+    secrets:
+      - mongo_user
+      - mongo_password
+  image_storage:
+    image: maiermic/12-factor-app-example-image-storage-nodejs:latest
+    ports:
+      - "3001:3001"
+    environment:
+      - STATIC_IMAGE_DIRECTORY=/static-image-directory
+      - PORT=3001
+    volumes:
+      - image-storage-volume:/static-image-directory
+  database:
+#    image: maiermic/12-factor-app-example-database-mongo:1.0.0
+    image: mongo:latest
+secrets:
+  mongo_user:
+    external: true
+  mongo_password:
+    external: true
+volumes:
+  image-storage-volume:
