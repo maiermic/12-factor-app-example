@@ -16,15 +16,15 @@ services:
       - mongo_password
     deploy:
       replicas: 2
-  image_storage:
-    image: maiermic/12-factor-app-example-image-storage-nodejs:latest
+  file_storage:
+    image: maiermic/12-factor-app-example-file-storage:latest
     ports:
       - "3001:3001"
     environment:
-      - STATIC_IMAGE_DIRECTORY=/static-image-directory
+      - STATIC_FILE_DIRECTORY=/static-file-directory
       - PORT=3001
     volumes:
-      - ./volumes/image-storage:/static-image-directory
+      - ./volumes/file-storage:/static-file-directory
   database:
 #    image: maiermic/12-factor-app-example-database-mongo:1.0.0
     image: mongo:latest
