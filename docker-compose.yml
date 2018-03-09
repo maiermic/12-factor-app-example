@@ -6,11 +6,11 @@ services:
       - database
       - image_storage
     ports:
-      - "3000:3000"
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
     environment:
       - MONGO_URI=mongodb://database:27017/12-factor-app
-      - PORT=3000
-      - BASE_IMAGE_URL=http://192.168.2.105:3001
+      - PORT=${BACKEND_PORT}
+      - BASE_IMAGE_URL=${BACKEND_BASE_IMAGE_URL}
     secrets:
       - mongo_user
       - mongo_password
@@ -19,10 +19,10 @@ services:
   file_storage:
     image: maiermic/12-factor-app-example-file-storage:latest
     ports:
-      - "3001:3001"
+      - "${FILE_STORAGE_PORT}:${FILE_STORAGE_PORT}"
     environment:
       - STATIC_FILE_DIRECTORY=/static-file-directory
-      - PORT=3001
+      - PORT=${FILE_STORAGE_PORT}
     volumes:
       - ./volumes/file-storage:/static-file-directory
   database:
@@ -33,7 +33,7 @@ services:
   visualizer:
       image: dockersamples/visualizer:stable
       ports:
-        - "8080:8080"
+        - "8080:${VISUALIZER_PORT}"
       volumes:
         - "/var/run/docker.sock:/var/run/docker.sock"
       deploy:
