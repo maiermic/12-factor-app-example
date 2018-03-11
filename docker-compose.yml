@@ -16,6 +16,18 @@ services:
       - mongo_password
     deploy:
       replicas: 2
+  frontend:
+    image: maiermic/12-factor-app-example-frontend:latest
+    depends_on:
+      - backend
+    ports:
+      - "${FRONTEND_PORT}:80"
+    environment:
+      - BACKEND_URL=${BACKEND_URL}
+    secrets:
+      - backend_api_token
+    deploy:
+      replicas: 1
   file_storage:
     image: maiermic/12-factor-app-example-file-storage:latest
     ports:
@@ -40,6 +52,8 @@ services:
         placement:
           constraints: [node.role == manager]
 secrets:
+  backend_api_token:
+    external: true
   mongo_user:
     external: true
   mongo_password:
