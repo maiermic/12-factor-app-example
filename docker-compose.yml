@@ -42,15 +42,6 @@ services:
     image: mongo:latest
     volumes:
       - ./volumes/database:/data/db
-  visualizer:
-      image: dockersamples/visualizer:stable
-      ports:
-        - "${VISUALIZER_PORT}:8080"
-      volumes:
-        - "/var/run/docker.sock:/var/run/docker.sock"
-      deploy:
-        placement:
-          constraints: [node.role == manager]
 secrets:
   backend_api_token:
     external: true
