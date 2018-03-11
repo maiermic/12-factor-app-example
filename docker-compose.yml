@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   backend:
-    image: maiermic/12-factor-app-example-backend-nodejs:latest
+    image: maiermic/12-factor-app-example-backend-nodejs:1.0.0
     depends_on:
       - database
       - image_storage
@@ -17,7 +17,7 @@ services:
     deploy:
       replicas: 2
   frontend:
-    image: maiermic/12-factor-app-example-frontend:latest
+    image: maiermic/12-factor-app-example-frontend:1.0.0
     depends_on:
       - backend
     ports:
@@ -29,7 +29,7 @@ services:
     deploy:
       replicas: 1
   file_storage:
-    image: maiermic/12-factor-app-example-file-storage:latest
+    image: maiermic/12-factor-app-example-file-storage:1.0.0
     ports:
       - "${FILE_STORAGE_PORT}:${FILE_STORAGE_PORT}"
     environment:
