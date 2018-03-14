@@ -38,7 +38,7 @@ services:
     volumes:
       - ./volumes/file-storage:/static-file-directory
   database:
-    image: mongo:latest
+    image: mongo:3.7
     volumes:
       - ./volumes/database:/data/db
 secrets:
