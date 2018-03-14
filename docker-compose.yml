@@ -38,7 +38,6 @@ services:
     volumes:
       - ./volumes/file-storage:/static-file-directory
   database:
-#    image: maiermic/12-factor-app-example-database-mongo:1.0.0
     image: mongo:latest
     volumes:
       - ./volumes/database:/data/db
